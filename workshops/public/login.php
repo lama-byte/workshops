@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         background-color: rgb(252, 244, 255);
     }
 
-    #loginForm button {
+    #loginForm #loginBtn {
         padding: 15px 40px;
         background-color: transparent;
         border-radius: 15px;
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         transition: 0.2s;
     }
 
-    #loginForm button:hover {
+    #loginForm #loginBtn:hover {
         background-color: rgb(244, 212, 212);
         color: white;
     }
@@ -154,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input id="password" type="password" name="password" placeholder="Enter your password" required>
             </fieldset>
             <br>
-            <button type="submit">Login</button>
+            <button id="loginBtn"type="submit">Login</button> 
         </form>
         <p>Don't have an account? <a href="signup.php">Sign up</a></p> <!-- صفحة signup-->
         </section>
@@ -171,6 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <p>© 2025 Stars Shop</p>
 
     </footer>
+       <script src="validation login.js"></script>
 </body>
 
 </html>
