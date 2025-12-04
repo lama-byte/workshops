@@ -6,21 +6,11 @@
     <title>Shopping Cart</title>
     <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="cart.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600&display=swap" rel="stylesheet">
+    <?php require_once "../shared/styleFonts.php" ?>
 
 </head>
 <body>
-    <header>
-        <h1 class="logo">Star's Shop</h1>
-        <nav class="headerNav">
-            <a href="catalog.html">Products</a>
-            <a href="#contactInfo">Contact</a>
-            <a href="cart.html"><img src="cart.png" alt="cart" width="30"></a>
-            <a href="home.html"><img src="exit.png" alt="logout" width="30"></a>
-        </nav>
-    </header>
-
+    <?php require_once "../shared/header.php" ?>
     <main>
         <h2>Shopping Cart</h2>
         <section id="cartStatus">
@@ -57,17 +47,8 @@
         </section>
         <hr>
     </main>
-    
     <footer id="contactInfo">
-        <p><b>Got Any Ideas? We’d love to hear from you!</b></p>
-        <a id="Email" href="mailto: support@starsCrochet.com">📧 Email: support@starsCrochet.com</a>
-        <a id="Phone number" href="tel: +966-12-345-6789">📞 Phone: +966 12 345 6789</a>
-        <a id="Address">📍 Location: Madina, Saudi Arabia</a>
-        <br>
-        <br>
-        <br>
-        <p>© 2025 Stars Shop</p>
-        
+    <?php require_once "../shared/footer.php"?>
     </footer>
 </body>
 </html>

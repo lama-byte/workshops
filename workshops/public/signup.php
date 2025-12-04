@@ -46,8 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Registeration page - Star's Shop</title>
     <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="signup.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600&display=swap" rel="stylesheet">
+    <?php require_once "../shared/styleFonts.php" ?>
     <style>
     main {
         margin: 2em auto;
@@ -166,14 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <header>
-        <h1>⋆⭒˚⋆ Star's Shop</h1>
-        <nav class="headerNav">
-            <a href="home.php">Home</a>
-            <a href="#contactInfo">Contact</a>
-            <a href="login.php">Login</a>
-        </nav>
-    </header>
+    <?php require_once "../shared/header.php" ?>
 
     <main>
         <section id="signup">
@@ -216,15 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </main>
 
     <footer id="contactInfo">
-        <p><b>Got Any Ideas? We’d love to hear from you!</b></p>
-        <a id="Email" href="mailto: support@starsCrochet.com">📧 Email: support@starsCrochet.com</a>
-        <a id="Phone number" href="tel: +966-12-345-6789">📞 Phone: +966 12 345 6789</a>
-        <a id="Address">📍 Location: Madina, Saudi Arabia</a>
-        <br>
-        <br>
-        <br>
-        <p>© 2025 Stars Shop</p>
-
+    <?php require_once "../shared/footer.php"?>
     </footer>
 </body>
 

@@ -1,0 +1,56 @@
+#welcome {
+        display: inline-block;
+    }
+
+    main {
+        display: flex;
+        padding: 3em;
+        align-items: center;
+        justify-content: space-between;
+        background-color: whitesmoke;
+        gap: 40px;
+    }
+
+
+    #reasons .card {
+        border : 2px solid black;
+        padding : 20px;
+    }
+
+    main h1 {
+        font-family: "Lora", serif;
+        font-size: 3.3em;
+        font-weight: 700;
+        font-style: normal;
+        color: rgb(43, 69, 147);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    main p {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: 1em;
+        font-weight: 20;
+        font-style: normal;
+    }
+    main a {
+        display: block;
+        margin: 20px auto 0;
+    }
+
+    main a>button {
+        size: 3em;
+        font-size: 20px;
+        font-family: "Lemon", serif;
+        color: rgb(234, 183, 14);
+        cursor: pointer;
+        border: 2.5px  solid rgb(234, 183, 14);
+        border-radius: 15px;
+        padding: 15px 30px ;
+        margin : 0 auto;
+    }
+
+    main a>button:hover {
+        background-color: rgb(244, 212, 212);
+        color: white;
+    }
+    

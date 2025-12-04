@@ -3,7 +3,7 @@
 }
 
 body {
-    background-color: rgb(107, 133, 122);
+    background-color: #e6e2c5;
 }
 
 header,
@@ -11,28 +11,69 @@ footer {
     align-items: center;
     gap: 50px;
     padding: 20px;
-    background-color: rgb(107, 133, 122);
+    background-color: rgb(43, 69, 147);
+    flex-wrap: wrap;
+    font-family: "Lora", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
 }
 
 header {
-    border-bottom: 4px dashed pink;
-    justify-content: space-between;
-    display: flex;
-
+    border-bottom: 4px solid whitesmoke;
 }
 
-header h1 {
+
+body>p {
+    display: flex;
+    background-color: darkred;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    color: whitesmoke;
+    font-weight: 400;
+    padding: 2px 30px;
+}
+
+header section {
+    display: flex;
+    justify-content: space-between;
+}
+
+header section h1 {
     padding: 15px 30px;
-    font-family: "Lemon", serif;
-    font-weight: 500;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-weight: 600;
     font-style: normal;
     color: rgb(240, 237, 187);
-    font-size: 2.4em;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
 }
 
-.headerNav {
-    text-align: right;
+header section input {
+    width: 40%;
+    margin: 1em 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border-radius: 30px;
+    padding: 10px;
 }
+
+
+.headerNav {
+    margin: 20px 15px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    justify-content: space-between;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    gap: 40px;
+}
+
 
 .headerNav a {
     padding: 30px 20px;
@@ -42,28 +83,23 @@ header h1 {
     font-size: 1.2em;
 }
 
+
 footer {
-    border-top: 4px dashed pink;
+    border-top: 4px solid whitesmoke;
     justify-content: space-between;
+    color: whitesmoke;
+    font-weight: 400;
 }
 
 footer p {
     padding: 15px 30px;
     display: block;
-    font-family: 'Unbounded', cursive;
-    font-weight: 1;
-    font-style: normal;
-    font-size: 1em;
-    color: whitesmoke;
 }
 
 footer a {
     text-decoration: none;
-    color: whitesmoke;
     padding: 15px 30px;
-    font-family: 'Unbounded', cursive;
-    font-weight: 1;
-    font-size: 0.9em;
+    color: whitesmoke;
 }
 
 main {
@@ -72,4 +108,3 @@ main {
     background-color: #f5f5f5;
     border-radius: 15px;
 }
-

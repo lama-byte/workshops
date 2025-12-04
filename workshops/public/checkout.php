@@ -51,9 +51,9 @@ $total_quantity = $cart->getTotalQuantity();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <link rel="stylesheet" href="base.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600&display=swap" rel="stylesheet">
+    <?php require_once "../shared/styleFonts.php" ?>
     <style>
+
     main {
         background-color: whitesmoke;
         padding: 3em;
@@ -170,15 +170,7 @@ $total_quantity = $cart->getTotalQuantity();
 </head>
 
 <body>
-    <header>
-        <h1 class="logo">⋆⭒˚⋆ Star's Shop</h1>
-        <nav class="headerNav">
-            <a href="#contactInfo">Contact</a>
-            <a href="cart.php"><img src="/resources/cart.png" alt="cart" width="30"></a>
-            <a href="home.php"><img src="/resources/exit.png" alt="logout" width="30"></a>
-        </nav>
-    </header>
-
+    <?php require_once "../shared/header.php" ?>
     <main>
         <h1>Checkout</h1>
         <br>
@@ -230,15 +222,7 @@ $total_quantity = $cart->getTotalQuantity();
     </main>
 
     <footer id="contactInfo">
-        <p><b>Got Any Ideas? We’d love to hear from you!</b></p>
-        <a id="Email" href="mailto: support@starsCrochet.com">📧 Email: support@starsCrochet.com</a>
-        <a id="Phone number" href="tel: +966-12-345-6789">📞 Phone: +966 12 345 6789</a>
-        <a id="Address">📍 Location: Madina, Saudi Arabia</a>
-        <br>
-        <br>
-        <br>
-        <p>© 2025 Stars Shop</p>
-        
+    <?php require_once "../shared/footer.php"?>
     </footer>
 </body>
 
