@@ -1,3 +1,4 @@
+
 <?php
 require_once 'config.php';
 
@@ -174,31 +175,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="msg <?php echo $success ? 'success' : 'error'; ?>">
             <?php echo $message; ?>
             <?php endif; ?>
-            <form methode="post" action= "<?php echo $_SERVER['PHP_SELF']; ?>">
+            <form  id="signUpForm" methode="post" action= "<?php echo $_SERVER['PHP_SELF']; ?>">
                 <fieldset class="row">
                     <div>
                         <label> First name </label>
-                        <input type="text" placeholder="Enter you first name" required value="<?php echo $_POST['first_name'] ?? ''; ?>">
+                        <input id="fname" type="text" placeholder="Enter you first name" required value="<?php echo $_POST['first_name'] ?? ''; ?>">
                     </div>
                     <div>
                         <label> Last name</label>
-                        <input type="text" name="first_name" placeholder="Enter your last name" required value="<?php echo htmlspecialchars($_POST['first_name'] ?? ''); ?>">
+                        <input id="lname" type="text" name="first_name" placeholder="Enter your last name" required value="<?php echo htmlspecialchars($_POST['first_name'] ?? ''); ?>">
                     </div>
                 </fieldset>
                 <fieldset id="Email">
                     <label> Email address</label> <br>
-                    <input type="email" name="email" placeholder="examble@ex.com" required value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+                    <input  id="email" type="email" name="email" placeholder="examble@ex.com" required value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
                 </fieldset>
                 <fieldset class="row">
                     <div>
                         <label> Password</label>
-                        <input type="password" placeholder="Enter your password" required>
+                        <input id="password1" type="password" placeholder="Enter your password" required>
+                        <p id="liveFeedback"> </p>
                     </div>
                     <div>
                         <label>Confirm Password</label>
-                        <input type="password" placeholder="Enter your password again" required>
+                        <input id="password2" type="password" placeholder="Enter your password again" required>
                     </div>
                 </fieldset>
+                 <button id="show/hide" type="button">show password</button><br>
                 <button type="submit">Sign up</button>
             </form>
             <p>Already have an account?
@@ -210,6 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <footer id="contactInfo">
     <?php require_once "../shared/footer.php"?>
     </footer>
+    <script src="validation signup.js"></script>
 </body>
 
 </html>
