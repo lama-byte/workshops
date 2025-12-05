@@ -28,7 +28,6 @@
         display: block;
         padding: 0.3em;
         font-weight: 800;
-        border-bottom: 2px solid rgb(43, 69, 147);
         pointer-events: none;
     }
 
@@ -50,7 +49,7 @@
         border: 2px solid rgb(43, 69, 147);
         border-radius: 100px;
         font-family: "Lora", serif;
-        font-size: 18px;
+        font-size: 15px;
         font-weight: 600;
         padding: 8px 20px;
         text-align: center;
@@ -61,13 +60,10 @@
     }
 
     .buttons button:hover {
-        background-color: rgb(244, 212, 212);
+        background-color: rgb(80, 99, 153);
         color: white;
     }
 
-    /* .buttons form {
-        display: inline;
-    } */
 
     main {
         display: block;
@@ -88,13 +84,6 @@
         margin: 20px 0;
     }
 
-    #intro {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 30px;      
-        margin: 2em;
-    }
 
     #intro h1 {
         color: rgb(43, 69, 147);
@@ -102,23 +91,34 @@
         font-family: "Lora", serif;
         font-optical-sizing: auto;
         font-weight: 900;
-        font-size: 2.5em;
+        font-size: 2.7em;
         font-style: normal;
-        padding: 15px 0;
+        padding: 15px;
+        margin: 0 1.2em ;
+        border-bottom: 2px solid rgb(43, 69, 147);
+    }
+
+
+    #sorting {
+        margin-bottom: 2.5em;
+        display: flex;
+        align-items: flex-end;
+    justify-content: right;
     }
 
     select {
-        padding: 15px;
-        font-size: 1em;
-        border: 3px solid rgb(43, 69, 147);
-        border-radius: 15px;
+        padding: 10px;
+        font-size: 0.8em;
+        border: 2px solid rgb(43, 69, 147);
+        border-radius: 10px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         color: rgb(80, 80, 80);
-        width: 35%;
+        width: 30%;
     }
 
     select + button {
-        padding: 0;
-        border: 3px solid rgb(43, 69, 147);
-        border-radius: 15px;
+        border: 2px solid rgb(43, 69, 147);
+        border-radius: 10px;
+        margin-left: 15px;
+        padding: 5px;
     }

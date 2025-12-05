@@ -21,25 +21,23 @@ require_once "config.php";
 
     <main>
         <section id="intro">
-            <h1>Our Current Workshops !</h1>
-            
-            <!-- <label for="searchBar">Can't find a product?</label> -->
+            <h1>Our Current Workshops</h1>
+        </section>
+
+        <div id="productList">
+            <section id="sorting">
             <select class="filter" name="category">
                     <option value="">All Categories</option>
                     <option value="crochet" <?php echo $category === 'crochet' ? 'selected' : ''; ?>>Crochet</option>
                     <option value="accessories" <?php echo $category === 'accessories' ? 'selected' : ''; ?>>Accessories</option>
                 </select>
-
-            <button class="filter" type="submit"><img src="/resources/search-icon.png" alt="search icon" width="45"></button>
+            <button class="filter" type="submit"><img src="../assets/img/search.png" alt="search icon" width="25"></button>
 
             <?php if (!empty($search) || !empty($category)): ?>
                     <a href="catalog.php" style="margin-left: 10px;">Clear Filters</a>
                 <?php endif; ?>
             </form>
-        </section>
-
-        <div id="productList">
-            <br>
+            </section>
             <section class="row">
 
                 <section class="card">
