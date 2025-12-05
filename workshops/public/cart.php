@@ -1,8 +1,10 @@
+
 <?php
-require_once 'config.php';  
+require_once 'config.php';
 
-$pdo = getPDO();
+$pdo = Database::getConnection();
 
+// ------------------------- CART ACTIONS -------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Clear Cart
@@ -13,25 +15,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Increase
+    // Increase quantity
     if (isset($_POST['increase'])) {
-        $productId = (int)$_POST['product_id'];
-        $currentQty = $_SESSION['cart'][$productId] ?? 0;
-        cart_update($productId, $currentQty + 1);
+        $workshopId = (int)$_POST['workshop_id'];
+        $currentQty = $_SESSION['cart'][$workshopId] ?? 0;
+
+        cart_update($workshopId, $currentQty + 1);
         $_SESSION['message'] = "Quantity increased";
         header("Location: cart.php");
         exit;
     }
-    // Decrease
+
+    // Decrease quantity
     if (isset($_POST['decrease'])) {
-        $productId = (int)$_POST['product_id'];
-        $currentQty = $_SESSION['cart'][$productId] ?? 0;
+        $workshopId = (int)$_POST['workshop_id'];
+        $currentQty = $_SESSION['cart'][$workshopId] ?? 0;
 
         if ($currentQty > 1) {
-            cart_update($productId, $currentQty - 1);
+            cart_update($workshopId, $currentQty - 1);
             $_SESSION['message'] = "Quantity decreased";
         } else {
-            unset($_SESSION['cart'][$productId]);
+            unset($_SESSION['cart'][$workshopId]);
             $_SESSION['message'] = "Item removed";
         }
 
@@ -40,36 +44,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// ---------Loading products from the DB based on cart ----------
+// ------------------------- Load WORKSHOPS from DB ------------------
 $cart_items = [];
 
-foreach ($_SESSION['cart'] as $productId => $quantity) {
-    $stmt = $pdo->prepare("SELECT id, name, price, stock, image, description 
-                            FROM products WHERE id = ?");
-    $stmt->execute([$productId]);
-    $product = $stmt->fetch();
+if (!empty($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $workshopId => $quantity) {
 
-    if ($product) {
-        $product['quantity'] = $quantity;
-        $cart_items[] = $product;
+        $stmt = $pdo->prepare("
+            SELECT 
+                id,
+                title,
+                price,
+                seats_available,
+                image,
+                description
+            FROM workshops
+            WHERE id = ?
+        ");
+
+        $stmt->execute([$workshopId]);
+        $row = $stmt->fetch();
+
+        if ($row) {
+            $row['quantity'] = $quantity;           // quantity fetched from session
+            $cart_items[] = $row;
+        }
     }
 }
 
-// total quantity
 $total_quantity = array_sum($_SESSION['cart']);
+$subtotal = cart_subtotal();
 
-// ----------  Subtotal ----------
-$subtotal = cart_subtotal();   // موجودة داخل config.php
-
-// ---------- Logout ---------- ////
+// logout
 if (isset($_GET['logout'])) {
-    unset($_SESSION['user_id']);
-    unset($_SESSION['role']);
-    unset($_SESSION['loggedin']);
+    session_destroy();
     header("Location: home.php");
     exit;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,82 +95,93 @@ if (isset($_GET['logout'])) {
 </head>
 <body>
     <?php require_once "../shared/header.php" ?>
- <main>
-        <h2>Shopping Cart</h2>
-        <?php if (isset($_SESSION['message'])): ?>
-            <p id="server_msg"><?php echo e($_SESSION['message']); ?></p>
-            <?php unset($_SESSION['message']); ?>
-        <?php endif; ?>
+ 
+<main>
 
-        <section id="cartStatus">
-        <?php if (empty($cart_items)): ?>
-            <p>Your cart is empty :(</p>
+    <h2>Shopping Cart</h2>
 
-        <?php else: ?>
-<table>
+    <?php if (isset($_SESSION['message'])): ?>
+        <p id="server_msg"><?php echo htmlspecialchars($_SESSION['message']); ?></p>
+        <?php unset($_SESSION['message']); ?>
+    <?php endif; ?>
+
+    <section id="cartStatus">
+
+    <?php if (empty($cart_items)): ?>
+
+        <p>Your cart is empty :(</p>
+
+    <?php else: ?>
+
+        <table>
             <tr>
-                    <th>product</th>
-                    <th>price</th>
-                    <th>quantity</th>
-                    <th>subtotal</th>
-             </tr>
-        <?php foreach ($cart_items as $product): ?>
-            <tr>
-                 <td>
-                     <img src="/img/<?php echo e($product['image']); ?>">               <!--مسار الصورة-->
-                      alt="<?php echo e($product['name']); ?>" width="150">
-                     <span><?php echo e($product['name']); ?></span>
-                        </td>
-                 <td><?php echo number_format($product['price'], 2); ?> SAR</td>
+                <th>Workshop</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
 
-                 <td> 
+            <?php foreach ($cart_items as $item): ?>
+            <tr>
+
+            <td>
+                    <img src="/img/<?php echo htmlspecialchars($item['image']); ?>" width="150"> ///
+                    <span><?php echo htmlspecialchars($item['title']); ?></span>
+                </td>
+
+                <td><?php echo number_format($item['price'], 2); ?> SAR</td>
+
+             <td>
                     <form method="POST">
-                            <input type="hidden" name="product_id"  value="<?php echo $product['id']; ?>">
+                        <input type="hidden" name="workshop_id" value="<?php echo $item['id']; ?>">
 
-                            <button type="submit" name="decrease" class="quantity-btn">-</button>
-                           <input type="number"
-                                    value="<?php echo $product['quantity']; ?>"
-                                    min="1"
-                                    max="<?php echo $product['stock']; ?>"
-                                    class="quantity-input" readonly>     <!-- prevent user to modfy quantity in checkout-->
+                        <button type="submit" name="decrease">-</button>
 
-                                <button type="submit" name="increase" class="quantity-btn">+</button>
-                            </form>
-                        </td>
-                    <td>
-                        <?php echo number_format($product['price'] * $product['quantity'], 2); ?> SAR
-                    </td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-       <p>Total number of items: <?php echo $total_quantity; ?></p>
+                        <input type="number"
+                               value="<?php echo $item['quantity']; ?>"
+                               min="1"
+                               max="<?php echo $item['seats_available']; ?>"
+                               readonly> <!-- prevent user to modfy quantity in checkout-->
 
-            <section id="lastBtns">
+                        <button type="submit" name="increase">+</button>
+                    </form>
+                </td>
 
-                <form method="POST">
-                    <button type="submit" name="clear_cart">Clear Cart</button>
-                </form>
+                <td><?php echo number_format($item['price'] * $item['quantity'], 2); ?> SAR</td>
 
-            <?php endif; ?> 
+            </tr>
 
-            <?php if ($total_quantity > 0): ?>
-                <a href="checkout.php">
-                    <button>Proceed to Checkout</button>
-                </a>
-            <?php else: ?>
-                <button disabled>Proceed to Checkout</button>
-            <?php endif; ?>
+            <?php endforeach; ?>
+        </table>
 
-            </section>
-        </section>
+        <p>Total items: <?php echo $total_quantity; ?></p>
 
-        <hr>
-    </main>
-      <footer id="contactInfo">
+        <section id="lastBtns">
+            <form method="POST">
+                <button type="submit" name="clear_cart">Clear Cart</button>
+            </form>
+        
+
+    <?php endif; ?>
+
+    
+
+    <?php if ($total_quantity > 0): ?>
+        <a href="checkout.php"><button>Proceed to Checkout</button></a>
+    <?php else: ?>
+        <button disabled>Proceed to Checkout</button>
+    <?php endif; ?>
+</section>
+ </section>
+ <hr>
+</main>
+<footer id="contactInfo">
     <?php require_once "../shared/footer.php"?>
      </footer>
- </body>
+</body>
+</html>
 
- 
-</html>     
+
+
+
                  
