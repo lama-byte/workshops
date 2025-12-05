@@ -7,7 +7,7 @@ echo "<p>✨ Unlock Your Tech Potential With Our Online Workshops!</p>
         </section>
         <nav class=\"headerNav\">
             <div id=\"div_left\">
-            <a href=\"home.php\">Home</a>
+            <a href=\"index.php\">Home</a>
             <a href=\"#contactInfo\">Contact</a>
             <a href=\"Workshops.php\">Workshops</a>
             <a href=\"my_workshops.php\">My Workshops</a>

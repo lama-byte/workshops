@@ -215,7 +215,7 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin – Manage Workshops</title>
-  <link rel="stylesheet" href="../public/base.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="../assets/css/index.css">
   <?php require_once __DIR__ . '/../shared/styleFonts.php'; ?>
 </head>
@@ -433,9 +433,9 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     </section>
 </main>
-
+<footer>
 <?php  require_once __DIR__ . '/../shared/footer.php'; ?>
-
+</footer>
 </body>
 </html>
 

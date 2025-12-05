@@ -1,0 +1,146 @@
+
+
+main {
+    width : 80%;
+    margin: 2em auto;
+        padding-top: 0;
+
+}
+
+main section {
+    display: inline-block;
+    margin: 3em;
+}
+
+h2 {
+    color: rgb(43, 69, 147);
+    flex-wrap: wrap;
+    font-family: "Lora", serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-size: 2em;
+    font-style: normal;
+    padding: 15px 0;
+}
+
+.workshop-info {
+    padding-top: 0;
+}
+
+.workshop-info h3, p , details{
+    padding: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.workshop-info h3 {
+    color: brown;
+    font-weight: bold;
+    font-style:normal;
+}
+
+.workshop-info p {
+    font-style: italic;
+    color: darkslategrey;
+}
+
+.workshop-reviews {
+    display: flex;
+    border: 3px solid rgb(43, 69, 147);
+    border-radius: 30px;
+    padding: 5px , 10px;
+}
+
+.workshop-reviews section{
+    margin: 10px;
+    padding : 10px 25px;
+    width: 100%;
+}
+
+.workshop-reviews section h3 , form {
+    padding : 10px; 
+}
+
+.workshop-reviews section h3 {
+    color: rgb(43, 69, 147);
+    flex-wrap: wrap;
+    font-family: "Lora", serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-size: 1.3em;
+    font-style: normal;
+    padding : 10px; 
+}
+
+.workshop-reviews form input {
+    padding : 10px; 
+    display: inline-flex;
+    width: 100%;
+    height: 70px;
+}
+
+.workshop-reviews form button {
+    margin : 10px 0;
+    text-align: right;
+    font-size: 1em;
+    padding: 10px 25px;
+    background-color: #1f3c88;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.workshop-reviews form button:hover{
+    background-color: #4462ae;
+        color: white;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;       
+    gap: 15px;
+    margin-top: 30px;
+    margin-right: 0;
+    align-items: flex-end;
+    justify-content: right;
+}
+
+.quantity-box {
+    border: 1px gray solid;
+    /* border-radius: 12px; */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.qty-btn {
+    padding: 8px 15px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+}
+
+.qty-btn:hover{
+    background-color: #656e86;
+    color: white;
+}
+
+#RegBtn , #addBtn {
+    padding: 10px 25px;
+    font-size: 1.1rem;
+    background-color: #1f3c88;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 200px;
+    cursor: pointer;
+
+}
+ 
+#RegBtn:hover , #addBtn:hover{
+        background-color: #4462ae;
+        color: white;
+    }
+

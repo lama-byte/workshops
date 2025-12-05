@@ -1,3 +1,35 @@
+<?php
+require_once 'config.php';
+$search = $_GET['search'] ?? '';
+$category = $_GET['category'] ?? '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_to_cart'])) {
+    $product_id = intval($_POST['product_id']);
+    $quantity = intval($_POST['quantity'] ?? 1);
+    
+    if ($quantity > 0 && isset($products[$product_id])) {
+        if ($products[$product_id]->reduceStock($quantity)) {
+            $cart->addItem($product_id, $quantity);
+        }
+    }
+}
+elseif(isset($_POST['remove_from_cart'])){
+   $product_id = intval($_POST['product_id']);
+        $cart->removeItem($product_id);
+    } 
+
+if (isset($_GET['logout'])) {
+    unset($_SESSION['user']);
+    unset($_SESSION['loggedin']);
+
+    header("Location: home.php");
+    exit;
+}
+
+$filtered_products = searchProducts($search, $category);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,134 +38,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
     <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/workshops.css">
+
     <?php require_once "../shared/styleFonts.php" ?>
 </head>
 
 <body>
     <?php require_once "../shared/header.php" ?>
 
-    <main>
+        <main>
         <section id="intro">
+            <form method="GET">
             <h1>Available Products</h1>
-            
-            <!-- <label for="searchBar">Can't find a product?</label> -->
-            <input id="searchBar" type="text" placeholder="search for a product">
+            <!-- <input id="searchBar" type="text" name="serach"
+             placeholder="search for a product" 
+             value="<?php echo htmlspecialchars($search); ?>"> -->
+
+             <select class="filter" name="category">
+                    <option value="">All Categories</option>
+                    <option value="crochet" <?php echo $category === 'crochet' ? 'selected' : ''; ?>>Crochet</option>
+                    <option value="accessories" <?php echo $category === 'accessories' ? 'selected' : ''; ?>>Accessories</option>
+                </select>
+
+            <button class="filter" type="submit"><img src="/resources/search-icon.png" alt="search icon" width="45"></button>
+
+            <?php if (!empty($search) || !empty($category)): ?>
+                    <a href="catalog.php" style="margin-left: 10px;">Clear Filters</a>
+                <?php endif; ?>
+            </form>
         </section>
+
+        <?php if (!empty($search) || !empty($category)): ?>
+            <div >
+                <?php if (!empty($search)): ?>
+                    <p>Search: <strong>"<?php echo htmlspecialchars($search); ?>"</strong></p>
+                <?php endif; ?>
+                <?php if (!empty($category)): ?>
+                    <p>Category: <strong><?php echo ucfirst($category); ?></strong></p>
+                <?php endif; ?>
+                <p>Found: <strong><?php echo count($filtered_products); ?> products</strong></p>
+            </div>
+        <?php endif; ?>
 
         <div id="productList">
             <br>
             <section class="row">
-
+                <?php for($i = 0; $i < min(10, count($filtered_products)); $i++): ?>
+                <?php if(isset($filtered_products[$i])): ?>
+                <?php $product = $filtered_products[$i]; ?>
                 <section class="card">
-                    <img src="/items/green_cat_keychain.jpg" alt="productImage" width="150">
-                    <h3>Green Hooded Kitty Doll</h3>
-                    <span>60 SAR</span>
+                    <img src="<?php echo $product->getImage(); ?>" alt="<?php echo $product->getName(); ?>" width=150>
+                    <h3><?php echo $product->getName(); ?></h3>
+                    <span><?php echo formatPrice($product->getPrice()); ?></span>
+                    <p><?php echo $product->getDescription(); ?></p>
+
                     <div class="buttons">
-                        <button>+</button>
-                        <button>-</button>
+                    <form method="POST" >
+                        <input type="hidden" name="product_id" value="<?php echo $product->getId(); ?>">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" name="add_to_cart">+</button>
+                    </form>
+                    <form method="POST" >
+                     <input type="hidden" name="product_id" value="<?php echo $product->getId(); ?>">
+                    <button type="submit" name="remove_from_cart">-</button>
+                    </form>
                     </div>
                 </section>
-
-                <section class="card">
-                    <img src="/items/blue_headband.jpg" alt="productImage" width="150">
-                    <h3>Blue Button Headband</h3>
-                    <span>35 SAR</span>
-                    <div class="buttons">
-                        <button>+</button>
-                        <button>-</button>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <img src="/items/fingerless_gloves.jpg" alt="productImage" width="150">
-                    <h3>Rose Spiral Fingerless Gloves</h3>
-                    <span>55 SAR</span>
-                    <div class="buttons">
-                        <button>+</button>
-                        <button>-</button>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <img src="/items/blue_apple_hat.jpg" alt="productImage" width="150">
-                    <h3>Blue Apple Beanie</h3>
-                    <span>70 SAR</span>
-                    <div class="buttons">
-                        <button>+</button>
-                        <button>-</button>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <img src="/items/frog_beanie.jpg" alt="productImage" width="150">
-                    <h3>Smily Frog Beanie</h3>
-                    <span>66 SAR</span>
-                    <div class="buttons">
-                        <button>+</button>
-                        <button>-</button>
-                    </div>
-                </section>
-                <br>
+                    <?php endif; ?>
+                <?php endfor; ?>
             </section>
-
-            <section class="row">
-                <br>
-                <section class="card">
-                    <img src="/items/funky_beanie.jpg" alt="productImage" width="150">
-                    <h3>Boho Earthy Tone Hat</h3>
-                    <span>75 SAR</span>
-                    <div class="buttons">
-                        <button>+</button>
-                        <button>-</button>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <img src="/items/apple_keychain.jpg" alt="productImage" width="150">
-                    <h3>Apple Charm</h3>
-                    <span>20 SAR</span>
-                    <div class="buttons">
-                        <button>+</button>
-                        <button>-</button>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <img src="/items/red_apple_scarf.jpg" alt="productImage" width="150">
-                    <h3>Red Cozy Scarf</h3>
-                    <span>80 SAR</span>
-                    <div class="buttons">
-                        <button>+</button>
-                        <button>-</button>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <img src="/items/red_cat_keychain.jpg" alt="productImage" width="150">
-                    <h3>Red Hooded Kitty Doll</h3>
-                    <span>60 SAR</span>
-                    <div class="buttons">
-                        <button type="button">+</button>
-                        <button>-</button>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <img src="/items/red_headband.jpg" alt="productImage" width="150">
-                    <h3>Red Button Headband</h3>
-                    <span>35 SAR</span>
-                    <div class="buttons">
-                        <button>+</button>
-                        <button>-</button>
-                    </div>
-                </section>
-            </section>
-
         </div>
 
         <section id="cartBtn">
-            <a href="cart.html">
-                <button>View Shopping Cart</button>
+            <a href="cart.php">
+                <button>View Shopping Cart (<?php echo $cart->getTotalQuantity(); ?>) </button>
             </a>
         </section>
     </main>

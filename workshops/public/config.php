@@ -77,4 +77,5 @@ function cart_total_with_tax($subtotal, $tax = 0.15) {
 function validateEmail($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
+
 ?>
