@@ -45,7 +45,7 @@ $workshops = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Workshops</title>
     <link rel="stylesheet" href="base.css">
-    <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/workshops.css">
     <?php require_once __DIR__ . '/../shared/styleFonts.php'; ?>
 </head>
 
@@ -105,7 +105,7 @@ $workshops = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <img src="<?= htmlspecialchars($imagePath); ?>"
                                  alt="<?= htmlspecialchars($w['title']); ?>">
                         <?php else: ?>
-                            <div class="workshop-placeholder">
+                          <div class="workshop-placeholder">
                                 <?= htmlspecialchars($w['category'] ?: 'Workshop') ?>
                             </div>
                         <?php endif; ?>
@@ -115,7 +115,7 @@ $workshops = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <h2 class="workshop-title">
                             <?= htmlspecialchars($w['title']) ?>
                         </h2>
-
+                          <br>
                         <p class="workshop-meta">
                             <?php if (!empty($w['start_date'])): ?>
                                 📅 <?= htmlspecialchars($w['start_date']) ?>
@@ -124,17 +124,13 @@ $workshops = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php if (!empty($w['start_time'])): ?>
                                 · ⏰ <?= htmlspecialchars(substr($w['start_time'], 0, 5)) ?>
                             <?php endif; ?>
-
+                             <br>
                             <?php if (!empty($w['location'])): ?>
                                 · 📍 <?= htmlspecialchars($w['location']) ?>
                             <?php endif; ?>
                         </p>
 
-                        <?php if (!empty($w['category'])): ?>
-                            <p class="workshop-category">
-                                Category: <?= htmlspecialchars($w['category']) ?>
-                            </p>
-                        <?php endif; ?>
+                       
 
                         <?php if (!empty($w['description'])): ?>
                             <p class="workshop-desc">
