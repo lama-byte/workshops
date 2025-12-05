@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../handlers/config.php';
 if (isLoggedIn()) {
     header("Location: catalog.php");
     exit();

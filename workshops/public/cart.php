@@ -1,6 +1,6 @@
 
 <?php
-require_once 'config.php';
+require_once '../handlers/config.php';
 
 $pdo = Database::getConnection();
 
