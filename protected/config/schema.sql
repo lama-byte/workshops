@@ -45,7 +45,7 @@ CREATE TABLE enrollments (
 INSERT INTO users (full_name, email, password, role)
 VALUES (
     'System Administrator',
-    'admin@example.com',
+    'admin@learningAura.com',
     -- password: admin123 (hashed using PHP's password_hash)
     '$2y$10$qhPaC8x9n.Q9mpzqZFPmeO5oQpPNtBFuxx39am550lUBZSwlD0NG2',
     'admin'
