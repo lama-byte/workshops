@@ -19,12 +19,13 @@
 
     main h1 {
         font-family: "Lora", serif;
-        font-size: 3.3em;
+        font-size: 3em;
         font-weight: 700;
         font-style: normal;
         color: rgb(43, 69, 147);
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
+
 
     main p {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -52,5 +53,18 @@
     main a>button:hover {
         background-color: rgb(244, 212, 212);
         color: white;
+    }
+
+    #reasons h2{
+        font-family: "Lora", serif;
+        font-size: 2em;
+        font-weight: 700;
+        font-style: normal;
+        color: rgb(43, 69, 147);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .card {
+        
     }
     

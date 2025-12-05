@@ -1,3 +1,4 @@
+/* ====== Workshops listing (public/workshops.php) ====== */
 
 #workshops-main {
     margin: 2em auto;
@@ -43,6 +44,9 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     padding-bottom: 1em;
      width: 100%;
+  font-family: 'Lora', serif;
+    font-weight: 300;
+    font-size: 1.1em;
 }
 
 /* Workshop image */
@@ -121,7 +125,7 @@
         grid-template-columns: 1fr;
     }
 }
-/* ===== TITLE + FILTER CENTERED ===== */
+
 .workshops-hero {
     text-align: center;
     margin-bottom: 2em;

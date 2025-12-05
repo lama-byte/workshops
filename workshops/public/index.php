@@ -4,7 +4,7 @@ if (isLoggedIn()) {
     header("Location: catalog.php");
     exit();
 }
-
+ 
 $message = "";
 ?>
 
@@ -45,7 +45,7 @@ $message = "";
         </section>
     </main>
     <main id="reasons">
-        <h1>Why you should choose Us ? </h1>
+        <h2>Why you should choose Us ? </h2>
             <section class="card">
                     <h3>reason1</h3>
             </section>
