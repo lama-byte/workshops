@@ -1,6 +1,4 @@
 <?php
-// workshops/public/workshops.php
-
 require_once __DIR__ . '/../../protected/config/database.php';
 session_start();
 

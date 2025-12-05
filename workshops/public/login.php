@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__.'/../../protected/config/database.php';
 require_once '../handlers/config.php';
 
 $pdo = Database::getConnection();

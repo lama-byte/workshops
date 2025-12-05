@@ -1,12 +1,14 @@
 <?php
 require_once '../handlers/config.php';
+require_once __DIR__.'/../../protected/config/database.php';
+
 
 $message = "";
 $success = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $pdo = getPDO();
+    $pdo = getConnection();
 
     $first_name = trim($_POST['first_name'] ?? '');
     $last_name = trim($_POST['last_name'] ?? '');

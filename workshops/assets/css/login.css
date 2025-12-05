@@ -1,5 +1,4 @@
 
-
     main {
         margin: 2em auto;
         background-color: whitesmoke;
@@ -85,10 +84,7 @@
     .error {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         font-size: 1em;
-        margin: 0;
         padding: 2px 30px;
         background-color: rgb(255, 241, 115);
         color: black;
-        display: flex;
-        width: 100%;
     }
