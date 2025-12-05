@@ -9,7 +9,8 @@ echo "<p>✨ Unlock Your Tech Potential With Our Online Workshops!</p>
             <div id=\"div_left\">
             <a href=\"home.php\">Home</a>
             <a href=\"#contactInfo\">Contact</a>
-            <a href=\"Workshops.php\">workshops</a>
+            <a href=\"Workshops.php\">Workshops</a>
+            <a href=\"my_workshops.php\">My Workshops</a>
             </div>
             <div id=\"div_right\">
             <a href=\"login.php\">Login</a>

@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registeration page - Star's Shop</title>
-    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
     <link rel="stylesheet" href="signup.css">
     <?php require_once "../shared/styleFonts.php" ?>
     <style>
