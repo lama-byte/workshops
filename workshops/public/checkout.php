@@ -5,7 +5,7 @@ requireLogin();
 $pdo = getPDO();
 $message = "";
 
-//  fetch products from cart.
+//   fetch products from cart.
 $cart_items = [];
 foreach ($_SESSION['cart'] as $productId => $quantity) {
     $stmt = $pdo->prepare("SELECT id, name, price, stock, image, description 
@@ -111,7 +111,120 @@ skip_commit:
     <title>checkout page</title>
     <link rel="stylesheet" href="base.css">    
      <?php require_once "../shared/styleFonts.php" ?>
+<style>
+    main {
+        background-color: whitesmoke;
+        padding: 3em;
+        margin: 2em auto;
+        width: 80%;
+        border-radius: 15px;
+    }
 
+    main h1 {
+        font-family: "Unbounded", cursive;
+        font-weight: 700;
+        color: rgb(130, 73, 130);
+        font-size: 2.6em;
+        text-align: center;
+        margin-bottom: 0.5em;
+    }
+
+    main h2 {
+        font-family: "Unbounded", cursive;
+        font-weight: 600;
+        color: rgb(130, 73, 130);
+        font-size: 1.7em;
+        text-align: center;
+        margin-bottom: 1.2em;
+    }
+
+    table {
+        width: 90%;
+        margin: 1.5em auto;
+        border-collapse: collapse;
+        font-family: "Unbounded", cursive;
+    }
+
+    table th {
+        background-color: rgb(130, 73, 130);
+        color: white;
+        padding: 12px;
+        font-weight: 600;
+    }
+
+    table td {
+        padding: 15px;
+        border-bottom: 2px solid rgb(205, 205, 205);
+        text-align: center;
+    }
+
+    table img {
+        width: 70px;
+        border-radius: 10px;
+        border: 2px solid lightyellow;
+    }
+
+    main section span,
+    main section p {
+        display: block;
+        font-family: "Unbounded", cursive;
+        font-size: 1.1em;
+        margin: 6px auto;
+        text-align: center;
+        color: rgb(70, 70, 70);
+    }
+
+    main section p:last-child {
+        font-weight: 600;
+        font-size: 1.3em;
+        color: rgb(130, 73, 130);
+        margin-top: 10px;
+    }
+
+
+    main section button {
+        font-size: 22px;
+        font-family: "Lemon", serif;
+        cursor: pointer;
+        padding: 15px 40px;
+        border-radius: 15px;
+        border: 2.5px solid rgb(130, 73, 130);
+        background-color: transparent;
+        color: rgb(130, 73, 130);
+        display: block;
+        margin: 2em auto 0;
+        transition: 0.2s;
+    }
+
+    main section button:hover {
+        background-color: rgb(244, 212, 212);
+        color: white;
+    }
+    #summary {
+        margin: 5em 10em;
+    }
+
+    #summary>span{
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        font-size: 1.1em;
+        font-family: "Unbounded", cursive;
+        white-space: nowrap;
+    }
+
+    #summary>span>span{
+        margin-right: 0;
+        width: 100%;
+        text-align: right;
+        font-weight: 700;
+        font-size: 1.1em;
+    }
+
+    hr {
+        margin: 3em auto;
+    }
+    </style>
 </head>
 
   <body>
@@ -139,7 +252,7 @@ skip_commit:
                 <?php foreach ($cart_items as $product): ?>
                 <tr>
                     <td>
-                        <img src="/img/<?php echo e($product['image']); ?>">   <!-- مسار الصورة-->
+                        <img src="/img/<?php echo e($product['image']); ?>">    <!-- مسار الصورة-->
                              alt="<?php echo e($product['name']); ?>" 
                              width="150">
                     </td>
