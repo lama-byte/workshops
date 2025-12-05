@@ -28,14 +28,16 @@ $message = "";
             <h1>Learning Aura Workshops</h1>
             <p>Where ideas glow brighter ⭐</p>
             <br>
-            <p><b>Learning Aura is an online platform that offers  
-                beginner-friendly cybersecurity workshops. The website provides 
-                easy-to-follow sessions in important areas such as cryptography, 
-                computer networks, security basics, web security, and safe online 
-                practices. Each workshop is designed to help learners build practical 
-                skills and gain a clear understanding of key cybersecurity concepts. 
-                Learning Aura makes it simple for students and beginners to choose a 
-                workshop, purchase it, and start learning at their own pace.</b></p>
+            <p>At Learning Aura, we provide an easy and effective way 
+                for students to discover and register for in-person workshops 
+                in the field of computer science.
+                Our platform gathers all the opportunities you need in one 
+                place — helping you build your skills, explore new areas, 
+                and grow with confidence.
+
+                Whether you're interested in cybersecurity, AI, networking, 
+                or general tech development, Learning Aura makes it simple 
+                to stay updated and take the next step in your learning journey.</p>
 
             <?php if ($message !== ""): ?>
                 <div class="message">
@@ -46,15 +48,25 @@ $message = "";
     </main>
     <main id="reasons">
         <h2>Why you should choose Us ? </h2>
-            <section class="card">
-                    <h3>reason1</h3>
-            </section>
-            <section class="card">
-                    <h3>reason2</h3>
-            </section>
-            <section class="card">
-                    <h3>reason3</h3>
-            </section>
+        <div id="cards">
+            <div class="card" id="1">
+                    <h3>✨ All Workshops in One Place</h3>
+                    <p>No more searching across multiple platforms — we gather all important tech workshops and announcements in one easy-to-access website.</p>
+            </div>
+            <div class="card" id="2">
+                    <h3>✨ Simple & Fast Registration</h3>
+                    <p>Register for workshops effortlessly with a clean, organized interface designed specifically for students.</p>
+            </div>
+
+            <div class="card" id="3">
+                    <h3>✨ Focused on Real Skill Growth</h3>
+                    <p>Every workshop is selected to help students strengthen practical skills in areas like cybersecurity, AI, networking, programming, and more.</p>
+            </div>
+            <div class="card" id="4">
+                    <h3>✨ Boost Your Career & Confidence</h3>
+                    <p>Never miss a valuable workshop again. Learning Aura keeps you informed about upcoming training sessions and learning events.</p>
+            </div>
+            </div>
     </main>
     <footer id="contactInfo">
     <?php require_once "../shared/footer.php"?>

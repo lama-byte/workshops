@@ -13,7 +13,6 @@ echo "<p>✨ Unlock Your Tech Potential With Our Online Workshops!</p>
             </div>
             <div id=\"div_right\">
             <a href=\"login.php\">Login</a>
-            <a href=\"cart.php\">Cart</a>
             </div>
         </nav>
     </header>"
