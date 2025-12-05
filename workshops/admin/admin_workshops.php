@@ -206,25 +206,27 @@ if (isset($_GET['edit'])) {
 $stmt = $pdo->query("SELECT * FROM workshops ORDER BY start_date ASC, start_time ASC");
 $workshops = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Get all purchased workshops with user information
+// Get all enrolled workshops with user information
+// Get all enrollments with user & workshop info
 $stmt = $pdo->query("
     SELECT 
-        oi.id,
-        oi.order_id,
-        oi.user_id,
-        oi.price,
-        oi.quantity,
-        (oi.price * oi.quantity) AS subtotal,
+        e.id,
+        e.user_id,
+        e.seats,
+        e.enrolled_at,
         w.title AS workshop_title,
         w.start_date,
         w.start_time,
         u.full_name AS user_full_name,
         u.email AS user_email
-    FROM order_items oi
-    JOIN workshops w ON oi.workshop_id = w.id
-    JOIN users u ON oi.user_id = u.id
-    ORDER BY oi.id DESC
+    FROM enrollments e
+    JOIN workshops w ON e.workshop_id = w.id
+    JOIN users u ON e.user_id = u.id
+    ORDER BY e.id DESC
 ");
+
+$orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -400,56 +402,54 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <h2>Enrolled Workshops</h2>
         <table class="admin-table">
-            <thead>
+    <thead>
+    <tr>
+        <th>Enrollment ID</th>
+        <th>User ID</th>
+        <th>User Name</th>
+        <th>User Email</th>
+        <th>Workshop</th>
+        <th>Date / Time</th>
+        <th>Seats</th>
+        <th>Enrolled At</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php if (empty($orderItems)): ?>
+        <tr>
+            <td colspan="9">No enrollments found.</td>
+        </tr>
+    <?php else: ?>
+        <?php foreach ($orderItems as $item): ?>
             <tr>
-              
-                <th>Order ID</th>
-                <th>User ID</th>
-                <th>User Name</th>
-                <th>User Email</th>
-                <th>Workshop</th>
-                <th>Date / Time</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-                <th>Actions</th>
+                <td><?= (int)$item['id'] ?></td>
+                <td><?= (int)$item['user_id'] ?></td>
+                <td><?= htmlspecialchars($item['user_full_name']) ?></td>
+                <td><?= htmlspecialchars($item['user_email']) ?></td>
+                <td><?= htmlspecialchars($item['workshop_title']) ?></td>
+                <td>
+                    <?= htmlspecialchars($item['start_date']) ?>
+                    <?php if (!empty($item['start_time'])): ?>
+                        <?= ' ' . htmlspecialchars(substr($item['start_time'], 0, 5)) ?>
+                    <?php endif; ?>
+                </td>
+                <td><?= (int)$item['seats'] ?></td>
+                <td><?= htmlspecialchars($item['enrolled_at']) ?></td>
+                <td>
+                    <a class="button delete"
+                       href="admin_workshops.php?delete_item=<?= (int)$item['id'] ?>"
+                       onclick="return confirm('Delete this enrollment?');">
+                        Delete
+                    </a>
+                </td>
             </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($orderItems)): ?>
-                <tr>
-                    <td colspan="11">No purchased workshops found.</td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($orderItems as $item): ?>
-                    <tr>
-                        
-                        <td><?= (int)$item['order_id'] ?></td>
-                        <td><?= (int)$item['user_id'] ?></td>
-                        <td><?= htmlspecialchars($item['user_full_name']) ?></td>
-                        <td><?= htmlspecialchars($item['user_email']) ?></td>
-                        <td><?= htmlspecialchars($item['workshop_title']) ?></td>
-                        <td>
-                            <?= htmlspecialchars($item['start_date']) ?>
-                            <?php if (!empty($item['start_time'])): ?>
-                                <?= ' ' . htmlspecialchars(substr($item['start_time'], 0, 5)) ?>
-                            <?php endif; ?>
-                        </td>
-                        <td><?= htmlspecialchars($item['price']) ?></td>
-                        <td><?= htmlspecialchars($item['quantity']) ?></td>
-                        <td><?= htmlspecialchars($item['subtotal']) ?></td>
-                        <td>
-                            <a class="button delete"
-                               href="admin_workshops.php?delete_item=<?= (int)$item['id'] ?>"
-                               onclick="return confirm('Delete this order item?');">
-                                Delete
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            </tbody>
-        </table>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    </tbody>
+</table>
+
+
 
     </section>
 </main>
@@ -458,4 +458,5 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 </body>
 </html>
+
 
