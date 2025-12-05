@@ -4,6 +4,8 @@ let fname = document.getElementById("fname");
     let pass1 = document.getElementById("password1");
     let pass2 = document.getElementById("password2");
     let passFeedback = document.getElementById("liveFeedback"); ////////////
+    let signUpBtn = document.getElementById("signUpBtn");
+
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
    
     document.getElementById("signUpForm").addEventListener("submit", function (e) {
@@ -47,18 +49,19 @@ let fname = document.getElementById("fname");
     });
 
     //show/hide passwords
-    let visibilityBtn = document.getElementById("show/hide");
+    let visibilityBtn = document.getElementById("togglePassword");
+
     visibilityBtn.addEventListener("click", function () {
       if (pass1.type == "password" && pass2.type == "password") {
         pass1.type = "text";
         pass2.type = "text";
         visibilityBtn.textContent = "hide password";
-      }
-      else {
+      } else {
         pass1.type = "password";
         pass2.type = "password";
         visibilityBtn.textContent = "show password";
       }
     });
+
 
     

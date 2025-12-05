@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <footer id="contactInfo">
     <?php require_once "../shared/footer.php"?>
     </footer>
-    <script src="validation login.js"></script>
+    <script src="../assets/js/validation_login.js"></script>
 
 </body>
 
