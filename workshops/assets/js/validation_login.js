@@ -1,28 +1,23 @@
-document.addEventListener("DOMContentLoaded", function (){
-      //
-      let email = document.getElementById("email");
-      let pass = document.getElementById("password");
-      let loginBtn = document.getElementById("loginBtn");
+document.addEventListener("DOMContentLoaded", function () {
 
-    document.getElementById("loginForm").addEventListener ("submit", function (e){
-        //email format validation 
-     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(email.value)){
-          alert("please enter a valid email address");
-          e.preventDefault();
+    const email = document.getElementById("email");
+    const loginForm = document.getElementById("loginForm");
+    const loginBtn = document.getElementById("loginBtn");
+
+    loginForm.addEventListener("submit", function (e) {
+
+        // Email format validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(email.value.trim())) {
+            alert("Please enter a valid email address");
+            e.preventDefault();
+            return;
         }
-         //check password length
-        else if (pass.value.length < 8){
-          pass.focus;
-          alert("password should be at least 8 characters!");
-          e.preventDefault();
-        }
-        else {
-        //after doing php should check if it's working --------------------
-        loginBtn.textContent = "Logging in..";
+        // NO password validation here (for security)
+
+        loginBtn.textContent = "Logging in...";
         loginBtn.disabled = true;
-        }
-
-      });
-
     });
+});
+   

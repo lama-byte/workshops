@@ -28,58 +28,20 @@ CREATE TABLE workshops (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+
 -- ===========================================
--- USER REGISTRATIONS (My Workshops Page)
+--  ENROLLMENTS TABLE (Tracks workshop enrollments)
 -- ===========================================
-CREATE TABLE registrations (
+CREATE TABLE enrollments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     workshop_id INT NOT NULL,
-    registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    seats INT NOT NULL DEFAULT 1,
+    enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (workshop_id) REFERENCES workshops(id) ON DELETE CASCADE
 );
-
--- ===========================================
--- CART TABLE (Cart system)
--- ===========================================
-CREATE TABLE cart (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    workshop_id INT NOT NULL,
-    quantity INT NOT NULL DEFAULT 1,
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (workshop_id) REFERENCES workshops(id) ON DELETE CASCADE
-);
-
--- ===========================================
--- ORDERS TABLE (Checkout system)
--- ===========================================
-CREATE TABLE orders (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    total_amount DECIMAL(10,2) NOT NULL,
-    payment_status ENUM('pending','paid','failed') DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
--- ===========================================
--- ORDER ITEMS (Workshops purchased)
--- ===========================================
-CREATE TABLE order_items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
-    user_id INT NOT NULL,
-    workshop_id INT NOT NULL,
-    price DECIMAL(10,2) NOT NULL,  
-    quantity INT NOT NULL DEFAULT 1,
-    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (workshop_id) REFERENCES workshops(id) ON DELETE CASCADE
-);
-
 
 
 
