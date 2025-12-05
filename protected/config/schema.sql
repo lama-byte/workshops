@@ -42,6 +42,14 @@ CREATE TABLE enrollments (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (workshop_id) REFERENCES workshops(id) ON DELETE CASCADE
 );
+INSERT INTO users (full_name, email, password, role)
+VALUES (
+    'System Administrator',
+    'admin@example.com',
+    -- password: admin123 (hashed using PHP's password_hash)
+    '$2y$10$qhPaC8x9n.Q9mpzqZFPmeO5oQpPNtBFuxx39am550lUBZSwlD0NG2',
+    'admin'
+);
 
 
 
