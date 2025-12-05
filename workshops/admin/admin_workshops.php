@@ -46,56 +46,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // --------- Image upload handling ----------
-    $imageName = null;
-    $currentImage = null;
+$imageName = null;
+$currentImage = null;
 
-    // For update, load existing image so we keep it if no new file
-    if ($action === 'update' && $id) {
-        $stmt = $pdo->prepare("SELECT image FROM workshops WHERE id = :id");
-        $stmt->execute([':id' => $id]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($row) {
-            $currentImage = $row['image'];
-        }
+// For update, load existing image so we keep it if no new file
+if ($action === 'update' && $id) {
+    $stmt = $pdo->prepare("SELECT image FROM workshops WHERE id = :id");
+    $stmt->execute([':id' => $id]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($row) {
+        $currentImage = $row['image']; // this should be just the file name
     }
+}
 
-    if (empty($errors)) {
-        // If a file was uploaded
-        if (!empty($_FILES['image_file']['name'])) {
-            $uploadDir = __DIR__ . '/../../public/uploads/';
+if (empty($errors)) {
+    // If a file was uploaded
+    if (!empty($_FILES['image_file']['name'])) {
+        $uploadDir = __DIR__ . '/../public/uploads/';
 
-            // Create uploads folder if it doesn't exist
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
+        // Create uploads folder if it doesn't exist
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
 
-            $originalName = basename($_FILES['image_file']['name']);
-            $ext = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
-            $allowedExt = ['jpg', 'jpeg', 'png', 'webp'];
+        $originalName = basename($_FILES['image_file']['name']);
+        $ext = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+        $allowedExt = ['jpg', 'jpeg', 'png', 'webp'];
 
-            if (!in_array($ext, $allowedExt)) {
-                $errors[] = 'Only JPG, JPEG, PNG, and WEBP images are allowed.';
-            } else {
-                // Generate safe, unique filename
-                $safeName = preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $originalName);
-                $imageName = time() . '_' . $safeName;
-                $targetFile = $uploadDir . $imageName;
+        // 1) Limit size to 2MB
+        $maxBytes = 2 * 1024 * 1024; // 2 MB
+        if ($_FILES['image_file']['size'] > $maxBytes) {
+            $errors[] = 'Image is too large. Max 2MB.';
+        }
 
-                if (!move_uploaded_file($_FILES['image_file']['tmp_name'], $targetFile)) {
-                    $errors[] = 'Failed to upload image file.';
-                }
-            }
+        // 2) Check real MIME type
+        $finfo    = new finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->file($_FILES['image_file']['tmp_name']);
+        $allowedMime = ['image/jpeg', 'image/png', 'image/webp'];
+
+        if (!in_array($mimeType, $allowedMime, true)) {
+            $errors[] = 'Invalid image content type.';
+        }
+
+        if (!in_array($ext, $allowedExt)) {
+            $errors[] = 'Only JPG, JPEG, PNG, and WEBP images are allowed.';
         } else {
-            // No new file uploaded
-            if ($action === 'update') {
-                // Keep old image
-                $imageName = $currentImage;
+            // Generate safe, unique filename
+            $safeName   = preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $originalName);
+            $fileName   = time() . '_' . $safeName;           // actual file name
+            $targetFile = $uploadDir . $fileName;
+
+            if (!move_uploaded_file($_FILES['image_file']['tmp_name'], $targetFile)) {
+                $errors[] = 'Failed to upload image file.';
             } else {
-                // Create without image
-                $imageName = null;
+                // ✅ store only the file name in DB
+                $imageName = $fileName;
             }
         }
+    } else {
+        // No new file uploaded
+        if ($action === 'update') {
+            // Keep old image
+            $imageName = $currentImage;
+        } else {
+            // Create without image
+            $imageName = null;
+        }
     }
+}
+
 
     // --------- Database insert / update ----------
     if (empty($errors)) {
@@ -215,13 +234,13 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin – Manage Workshops</title>
-  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../public/base.css">
   <link rel="stylesheet" href="../assets/css/index.css">
   <?php require_once __DIR__ . '/../shared/styleFonts.php'; ?>
 </head>
 <body>
 
-<?php require_once __DIR__ . "/../shared/headerAdmin.php" ?>
+<?php require_once __DIR__ . '/../shared/headerAdmin.php'; ?>
 
 <main id="admin-main">
     <section id="admin-content">
@@ -309,13 +328,14 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </label>
 
                 <?php if (!empty($editWorkshop['image'])): ?>
-                    <div style="margin-top: 0.5em;">
-                        <span>Current Image:</span><br>
-                        <img src="../public/uploads/<?= htmlspecialchars($editWorkshop['image']) ?>"
-                             alt="Workshop image"
-                             style="max-width: 150px; max-height: 150px; border-radius: 8px;">
-                    </div>
-                <?php endif; ?>
+    <div style="margin-top: 0.5em;">
+        <span>Current Image:</span><br>
+        <img src="../public/<?= htmlspecialchars($editWorkshop['image']) ?>"
+             alt="Workshop image"
+             style="max-width: 150px; max-height: 150px; border-radius: 8px;">
+    </div>
+<?php endif; ?>
+
             </div>
 
             <div class="row">
@@ -433,9 +453,8 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     </section>
 </main>
-<footer>
+
 <?php  require_once __DIR__ . '/../shared/footer.php'; ?>
-</footer>
+
 </body>
 </html>
-
