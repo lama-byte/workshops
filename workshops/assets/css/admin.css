@@ -1,4 +1,4 @@
-  /* admin css */
+ /* admin css */
 
 /* Page background */
 body {
@@ -129,9 +129,11 @@ table.admin-table {
 table.admin-table th,
 table.admin-table td {
     border: 1px solid black;
-    padding: 0.5em 0.75em;
-    font-size: 0.95em;
+    padding: 0.7em 1em;
+    font-size: 1.15em;  /* BIGGER TEXT */
 }
+
+
 
 table.admin-table th {
     background-color: rgb(43, 69, 147);
