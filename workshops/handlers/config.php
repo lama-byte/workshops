@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-function getPDO() {      //  connect with DB....
+function getConnection() {      //  connect with DB....
     static $pdo = null;
 
     if ($pdo === null) {
