@@ -12,11 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     elseif (!isset($users[$email])) {
-        $error = "Email not found";
+        $error = "Email not found❗";
     }
     
     elseif ($users[$email]['password'] !== $password) {
-        $error = "Incorrect password";
+        $error = "Incorrect password❗";
     }
     else {
         $_SESSION['user'] = $users[$email];
@@ -35,105 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login page</title>
     <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
     <?php require_once "../shared/styleFonts.php" ?>
-    <style>
-    main {
-        margin: 2em auto;
-        background-color: whitesmoke;
-        padding: 3em;
-        width: 60%;
-        border-radius: 15px;
-        text-align: center;
-    }
-
-    #login h2 {
-        font-family: "Unbounded", cursive;
-        font-weight: 700;
-        color: rgb(130, 73, 130);
-        font-size: 2em;
-        margin: 40px auto;
-    }
-
-    #loginForm fieldset {
-        border: none;
-        margin-bottom: 1.5em;
-    }
-
-    #loginForm label {
-        display: block;
-        font-family: "Unbounded", cursive;
-        font-size: 1em;
-        margin: 200px 0 30px 0;
-        color: rgb(90, 90, 90);
-
-    }
-
-    #loginForm input {
-        width: 70%;
-        padding: 12px;
-        border-radius: 10px;
-        border: 2px solid rgb(130, 73, 130);
-        font-size: 1em;
-        font-family: "Unbounded", cursive;
-        outline: none;
-    }
-
-    #loginForm input:focus {
-        border-color: rgb(185, 140, 185);
-        background-color: rgb(252, 244, 255);
-    }
-
-    #loginForm #loginBtn {
-        padding: 15px 40px;
-        background-color: transparent;
-        border-radius: 15px;
-        border: 2.5px solid rgb(130, 73, 130);
-        font-size: 20px;
-        font-family: "Lemon", serif;
-        color: rgb(130, 73, 130);
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-    #loginForm #loginBtn:hover {
-        background-color: rgb(244, 212, 212);
-        color: white;
-    }
-
-
-    #login p {
-        font-family: "Unbounded", cursive;
-        margin-top: 1.5em;
-    }
-
-    #login a {
-        color: rgb(130, 73, 130);
-        text-decoration: underline;
-        font-weight: 600;
-    }
-
-    #loginForm label {
-        text-align: left;
-        width: 70%; 
-        margin: 10px auto 5px;
-    }
-
-    .error {
-        font-family: "Unbounded", cursive;
-        font-size: 1em;
-        margin: 1em 3em;
-        color: rgb(62, 141, 57);
-        text-align: right;
-    }
-    </style>
+    
 </head>
 
 <body>
     <?php require_once "../shared/header.php" ?>
-    <main>
-        <?php if ($error): ?>
+     <?php if ($error): ?>
             <div class="error"> <?php echo $error; ?></div>
-        <?php endif; ?>
+    <?php endif; ?>
+    <main>
+        
         <section id="login">
         <h2>Welcome Back!</h2>
         <form id="loginForm" method="POST" action="login.php">
