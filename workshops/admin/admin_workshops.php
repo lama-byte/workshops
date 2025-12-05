@@ -235,7 +235,7 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin – Manage Workshops</title>
   <link rel="stylesheet" href="../public/base.css">
-  <link rel="stylesheet" href="../assets/css/index.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
   <?php require_once __DIR__ . '/../shared/styleFonts.php'; ?>
 </head>
 <body>
@@ -355,7 +355,7 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <table class="admin-table">
             <thead>
             <tr>
-                <th>ID</th>
+               
                 <th>Title</th>
                 <th>Date / Time</th>
                 <th>Category</th>
@@ -372,7 +372,7 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php else: ?>
                 <?php foreach ($workshops as $w): ?>
                     <tr>
-                        <td><?= (int)$w['id'] ?></td>
+                       
                         <td><?= htmlspecialchars($w['title']) ?></td>
                         <td>
                             <?= htmlspecialchars($w['start_date']) ?>
@@ -398,11 +398,11 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
 
-        <h2>Purchased Workshops (Order Items)</h2>
+        <h2>Enrolled Workshops</h2>
         <table class="admin-table">
             <thead>
             <tr>
-                <th>Item ID</th>
+              
                 <th>Order ID</th>
                 <th>User ID</th>
                 <th>User Name</th>
@@ -423,7 +423,7 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php else: ?>
                 <?php foreach ($orderItems as $item): ?>
                     <tr>
-                        <td><?= (int)$item['id'] ?></td>
+                        
                         <td><?= (int)$item['order_id'] ?></td>
                         <td><?= (int)$item['user_id'] ?></td>
                         <td><?= htmlspecialchars($item['user_full_name']) ?></td>
@@ -454,7 +454,8 @@ $orderItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 </main>
 
-<?php  require_once __DIR__ . '/../shared/footer.php'; ?>
+
 
 </body>
 </html>
+
